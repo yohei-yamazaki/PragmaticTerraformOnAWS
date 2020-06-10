@@ -10,7 +10,7 @@ terraform {
 
 resource "aws_instance" "exmaple" {
   ami                    = "ami-0f9ae750e8274075b"
-  instance_type          = var.example_instance_type
+  instance_type          = var.env == "prod" ? "m5.large" : "t3.micro"
   vpc_security_group_ids = [aws_security_group.example_ec2.id]
 
   user_data = <<EOF

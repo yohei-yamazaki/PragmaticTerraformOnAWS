@@ -1,3 +1,3 @@
-output "exmaple_instance_id" {
-  value = aws_instance.exmaple.id
+output "exmaple_public_dns" {
+  value = aws_instance.exmaple.public_dns
 }
