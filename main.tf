@@ -8,22 +8,14 @@ terraform {
   required_version = ">= 0.12.0"
 }
 
-data "aws_ami" "recent_amazon_linux_2" {
-  most_recent = true
-  owners      = ["amazon"]
-
-  filter {
-    name   = "name"
-    values = ["amzn2-ami-hvm-2.0.????????-x86_64-gp2"]
-  }
-
-  filter {
-    name   = "state"
-    values = ["available"]
-  }
-}
-
 resource "aws_instance" "exmaple" {
-  ami           = data.aws_ami.recent_amazon_linux_2.image_id
-  instance_type = var.example_instance_type
+  ami                    = "ami-0f9ae750e8274075b"
+  instance_type          = var.example_instance_type
+  vpc_security_group_ids = [aws_security_group.example_ec2.id]
+
+  user_data = <<EOF
+    #!/bin/bash
+    yum install -y httpd
+    systemctl start httpd.service
+EOF
 }
