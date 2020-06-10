@@ -4,17 +4,11 @@ provider "aws" {
   profile = "myaccount"
 }
 
-
 terraform {
   required_version = ">= 0.12.0"
 }
+
 resource "aws_instance" "exmaple" {
   ami           = "ami-0f9ae750e8274075b"
-  instance_type = "t3.micro"
-
-  user_data = <<EOF
-    #!/bin/bash
-    yum install -y httpd
-    systemctl start httpd.service
-EOF
+  instance_type = var.example_instance_type
 }
